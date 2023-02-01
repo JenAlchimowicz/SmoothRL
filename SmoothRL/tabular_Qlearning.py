@@ -1,6 +1,6 @@
 import gymnasium as gym
 import numpy as np
-from typing import Any, Optional
+from typing import Optional, Hashable
 from tqdm import tqdm
 
 
@@ -24,7 +24,7 @@ class QlearningAgent:
 
 
     # Maps states to rows in q_table
-    def get_state_idx(self, state: Any) -> int:
+    def get_state_idx(self, state: Hashable) -> int:
         if state not in self.state_dict.keys():
             self.state_dict[state] = len(self.state_dict)
         state_idx = self.state_dict[state]
@@ -33,7 +33,7 @@ class QlearningAgent:
 
     def chose_action(
         self,
-        state: Any,
+        state: Hashable,
         epsilon: Optional[float] = None
     ) -> int:
         
@@ -48,10 +48,10 @@ class QlearningAgent:
     
     def update_q_table(
         self,
-        state: Any,
+        state: Hashable,
         action: int,
         reward: float,
-        next_state: Any
+        next_state: Hashable
     ):
         state_idx = self.get_state_idx(state)
         next_state_idx = self.get_state_idx(next_state)
