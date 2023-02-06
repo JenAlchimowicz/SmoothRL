@@ -89,7 +89,6 @@ class DQNagent:
         state: np.array,
         epsilon: Optional[float] = None
     ) -> int:
-
         epsilon = epsilon if epsilon is not None else self.epsilon
         if np.random.rand() < epsilon:
             action = self.action_space.sample()
@@ -123,9 +122,9 @@ class DQNagent:
 epsilon = 0.15
 gamma = 0.99
 learning_rate = 0.001
-replay_buffer_size = 100_000
+replay_buffer_size = 50_000
 batch_size = 128
-train_episodes = 100
+train_episodes = 1_000
 eval_episodes = 1_000
 
 env = gym.make('CartPole-v1')
