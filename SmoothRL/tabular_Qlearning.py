@@ -31,7 +31,7 @@ class QlearningAgent:
         return state_idx
 
 
-    def chose_action(
+    def choose_action(
         self,
         state: Hashable,
         epsilon: Optional[float] = None
@@ -73,7 +73,7 @@ for _ in tqdm(range(train_episodes)):
     state, _ = env.reset()
 
     while True:
-        action = agent.chose_action(state)
+        action = agent.choose_action(state)
         next_state, reward, terminal, truncated, info = env.step(action)
         agent.update_q_table(state, action, reward, next_state)
         state = next_state
@@ -87,7 +87,7 @@ for _ in tqdm(range(eval_episodes)):
     state, _ = env.reset()
     episode_rewards = 0
     while True:
-        action = agent.chose_action(state, epsilon = 0)
+        action = agent.choose_action(state, epsilon = 0)
         next_state, reward, terminal, truncated, info = env.step(action)
         state = next_state
         episode_rewards += reward

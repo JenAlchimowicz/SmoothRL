@@ -33,7 +33,7 @@ class nStep_QlearningAgent:
         return state_idx
 
 
-    def chose_action(
+    def choose_action(
         self,
         state: Hashable,
         epsilon: Optional[float] = None
@@ -72,7 +72,7 @@ agent = nStep_QlearningAgent(env.observation_space, env.action_space, epsilon, g
 # Training
 for _ in tqdm(range(train_episodes)):
     state, _ = env.reset()
-    action = agent.chose_action(state)
+    action = agent.choose_action(state)
 
     states = [state]
     rewards = [0.0]
@@ -90,7 +90,7 @@ for _ in tqdm(range(train_episodes)):
             if terminal or truncated:
                 T = t + 1
             else:
-                next_action = agent.chose_action(next_state)
+                next_action = agent.choose_action(next_state)
                 actions.append(next_action)
 
         # Learn
@@ -124,7 +124,7 @@ for _ in tqdm(range(eval_episodes)):
     state, _ = env.reset()
     episode_rewards = 0
     while True:
-        action = agent.chose_action(state, epsilon = 0)
+        action = agent.choose_action(state, epsilon = 0)
         next_state, reward, terminal, truncated, info = env.step(action)
         state = next_state
         episode_rewards += reward

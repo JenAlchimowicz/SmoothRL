@@ -41,7 +41,7 @@ class ReinforceAgent:
         self.gamma = gamma
         
 
-    def act(self, state: np.array):
+    def choose_action(self, state: np.array):
         state = torch.from_numpy(state).float().unsqueeze(0)
         probs = self.policy.forward(state)
         action_distribution = Categorical(probs)
@@ -89,7 +89,7 @@ for _ in tqdm(range(train_episodes)):
 
     # Generate trajectory
     while True:
-        action, log_prob = agent.act(state)
+        action, log_prob = agent.choose_action(state)
         next_state, reward, terminal, truncated, info = env.step(action)
 
         log_probs.append(log_prob)
@@ -110,7 +110,7 @@ for _ in tqdm(range(eval_episodes)):
     state, _ = env.reset()
     episode_rewards = 0
     while True:
-        action, _ = agent.act(state)
+        action, _ = agent.choose_action(state)
         next_state, reward, terminal, truncated, info = env.step(action)
         state = next_state
         episode_rewards += reward

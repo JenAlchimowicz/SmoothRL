@@ -84,7 +84,7 @@ class DQNagent:
         self.loss = nn.MSELoss()
         
 
-    def chose_action(
+    def choose_action(
         self,
         state: np.array,
         epsilon: Optional[float] = None
@@ -136,7 +136,7 @@ replay_buffer = ReplayBuffer(replay_buffer_size, env.observation_space.shape)
 for _ in tqdm(range(train_episodes)):
     state, _ = env.reset()
     while True:
-        action = agent.chose_action(state)
+        action = agent.choose_action(state)
         next_state, reward, terminal, truncated, info = env.step(action)
         replay_buffer.store_transition(state, action, reward, next_state, terminal or truncated)
         
@@ -156,7 +156,7 @@ for _ in tqdm(range(eval_episodes)):
     state, _ = env.reset()
     episode_rewards = 0
     while True:
-        action = agent.chose_action(state, epsilon = 0)
+        action = agent.choose_action(state, epsilon = 0)
         next_state, reward, terminal, truncated, info = env.step(action)
         state = next_state
         episode_rewards += reward
